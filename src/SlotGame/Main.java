@@ -84,6 +84,7 @@ public class Main {
 
             switch (input) {
                 case 1:
+                    // stable bet maybe increasing bet can increase win chance
                     System.out.println("Please enter your bet");
                     bet = scn.nextDouble();
                     scn.nextLine();

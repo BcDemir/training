@@ -73,21 +73,21 @@ public class SlotMachineAdv {
             Random rnd = new Random();
             int random = rnd.nextInt(5);
 
-            switch (random + 1){
+            switch (++random){
                 case 1:
                     System.out.printf("Cherry  ");
                     break;
                 case 2:
-                    System.out.printf("lemon  ");
+                    System.out.printf("Lemon  ");
                     break;
                 case 3:
-                    System.out.printf("orange  ");
+                    System.out.printf("Orange  ");
                     break;
                 case 4:
-                    System.out.printf("plum  ");
+                    System.out.printf("Plum  ");
                     break;
                 case 5:
-                    System.out.printf("bell  ");
+                    System.out.printf("Bell  ");
                     break;
                 default:
                     System.out.printf("There is a problem!");
