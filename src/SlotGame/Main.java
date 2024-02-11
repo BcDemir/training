@@ -75,22 +75,27 @@ public class Main {
             System.out.println("*******************SLOT GAME*******************");
             System.out.println("**********Welcome to the Slots Game!***********");
             System.out.println("Your Balance: " + Julienne.getMoney() + "$");
-            System.out.println("Jackpot     : " + SlotMachineAdv.jackpot + "$");
             System.out.println("Please choose a number from the menu to start");
-            System.out.println("1. Play");
-            System.out.println("2. Exit");
+            System.out.println("1. Spin");
+            System.out.println("2. Info");
+            System.out.println("3. Exit");
 
             input = scn.nextInt();
 
             switch (input) {
                 case 1:
+                    // Check if player has enough amount to bet
+                    if (bet >= Julienne.getMoney()){
+                        System.out.println("You do not have enough money!");
+                        break;
+                    }
+
                     // stable bet maybe increasing bet can increase win chance
                     System.out.println("Please enter your bet");
                     bet = scn.nextDouble();
                     scn.nextLine();
 
-                    // Deduct the bet amount from Player's account. Here should be a validation
-                    // for account balance to prevent dropping below 0
+                    // Deduct the bet amount from Player's account.
                     Julienne.setMoney(Julienne.money - bet);
 
                     // Spinning method
@@ -101,6 +106,15 @@ public class Main {
                     scn.nextLine();
                     break;
                 case 2:
+                    // RTP is 96.04% with these ratios
+                    System.out.println("Cherry Cherry Cherry                        --->    Jackpot");
+                    System.out.println("Any four of Lemon, Orange, Bell or Plum     --->    x25");
+                    System.out.println("Any two similar reels next to each other    --->    x2");
+                    System.out.println("Press enter to continue!");
+                    scn.nextLine();
+                    scn.nextLine();
+                    break;
+                case 3:
                     System.out.println("Thank you for playing");
 
                     // Saving latest house and jackpot values to a file
