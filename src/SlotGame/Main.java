@@ -20,7 +20,7 @@ public class Main {
 
         Scanner scn = new Scanner(System.in);
 
-        // Read house and jackpot data from the files
+        //region Read house and jackpot data from the files
         File myObj = new File("jackpot.txt");
         Scanner rdScn = null;
         String dataJackpot = null;
@@ -45,10 +45,12 @@ public class Main {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+        //endregion
 
 
-        // Initiate a slotMachine object
+        //region Initiate a slotMachine object
         SlotMachineAdv alwaysWin = new SlotMachineAdv("TheWinner", 3);
+        SlotMachine newGameMech = new SlotMachine("WinnersOnly",3, Double.parseDouble(dataJackpot));
         if (dataJackpot != null) {
             SlotMachineAdv.setJackpot(Double.parseDouble(dataJackpot));
         }
@@ -61,20 +63,22 @@ public class Main {
         else {
             SlotMachineAdv.setHouse(0);
         }
+        //endregion
 
-        // Initiate a Player object
+        //region Initiate a Player object
         System.out.println("Please enter your name");
         String name = scn.nextLine();
         System.out.println("Please enter your balance");
         double money = scn.nextDouble();
         Player Julienne = new Player(name, money);
+        //endregion
 
-
-        // Menu
+        //region Menu
         while (inGame) {
             System.out.println("*******************SLOT GAME*******************");
             System.out.println("**********Welcome to the Slots Game!***********");
-            System.out.println("Your Balance: " + Julienne.getMoney() + "$");
+            System.out.println("Your Balance:   " + Julienne.getMoney() + "$");
+            System.out.printf("JACKPOT:         %.2f$\n", newGameMech.getJackpot());
             System.out.println("Please choose a number from the menu to start");
             System.out.println("1. Spin");
             System.out.println("2. Info");
@@ -99,7 +103,8 @@ public class Main {
                     Julienne.setMoney(Julienne.money - bet);
 
                     // Spinning method
-                    alwaysWin.spinning(bet, Julienne);
+                    System.out.println(newGameMech.spinning());
+                    newGameMech.calculations(bet,Julienne);
 
                     // End
                     System.out.printf("Press enter to continue!\n");
@@ -120,14 +125,14 @@ public class Main {
                     // Saving latest house and jackpot values to a file
                     try {
                         PrintWriter pw = new PrintWriter("jackpot.txt");
-                        pw.write(Double.toString(SlotMachineAdv.getJackpot()));
+                        pw.write(Double.toString(newGameMech.getJackpot()));
                         pw.close();
                     } catch (FileNotFoundException e) {
                         throw new RuntimeException(e);
                     }
                     try {
                         PrintWriter pw = new PrintWriter("house.txt");
-                        pw.write(Double.toString(SlotMachineAdv.getHouse()));
+                        pw.write(Double.toString(newGameMech.getHouse()));
                         pw.close();
                     } catch (FileNotFoundException e) {
                         throw new RuntimeException(e);
@@ -142,15 +147,7 @@ public class Main {
                     break;
             }
         }
-
-
-
-        /*
-        insan ve inherite eden classlar olustur. bunlar oyuncular olsun
-        hepsinin parasi olsun initiate ederken. while dongulu bir menu olsun
-        oyun oynayan bet koyup oynasin bu sirada jackpot biriksin. kaybetme counter i arttikca
-        jackpot kazanma olasiligi artsin. house kazanci sayaci olsun onu menude gizli bir sayiya basrak gorebilelim
-         */
+        //endregion
 
     }
 }
