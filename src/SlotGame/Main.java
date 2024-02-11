@@ -108,8 +108,8 @@ public class Main {
                 case 2:
                     // RTP is 96.04% with these ratios
                     System.out.println("Cherry Cherry Cherry                        --->    Jackpot");
-                    System.out.println("Any four of Lemon, Orange, Bell or Plum     --->    x25");
-                    System.out.println("Any two similar reels next to each other    --->    x2");
+                    System.out.println("Any four of Lemon, Orange, Bell or Plum     --->    x20");
+                    System.out.println("Any two similar reels next to each other    --->    x1");
                     System.out.println("Press enter to continue!");
                     scn.nextLine();
                     scn.nextLine();

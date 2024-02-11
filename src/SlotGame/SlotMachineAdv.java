@@ -101,30 +101,22 @@ public class SlotMachineAdv {
         int nTwo = listOfNumbers.get(1);
         int nThree = listOfNumbers.get(2);
 
-        // debug
-        System.out.println(nOne != 1);
-
-        // Loops to check winnings
-        for(int j = 0; j < listOfNumbers.size() - 1; j++){
-            // check for jackpot | probabilty .008
-            if (nOne == nTwo && nTwo == nThree && nOne == 1){
-                Player.setMoney(Player.getMoney() + (jackpot));
-                System.out.printf("JACKPOT!!! You won %.2f$", jackpot);
-                SlotMachineAdv.setJackpot(0);   // set jackpot to zero
-                break;
-            }
-            // check for other fruits same line win x25 bet | probabilty .032
-            else if (nOne == nTwo && nTwo == nThree && nOne != 1) {
-                Player.setMoney(Player.getMoney() + (money * 25));
-                System.out.printf("WOW!!! You won %.2f$", money * 25);
-                break;
-            }
-            // check if two similar reels next to each other x2 bet | probabilty .08
-            else if ((nOne == nTwo || nTwo == nThree) && nOne != nThree){
-                Player.setMoney(Player.getMoney() + (money * 2));
-                System.out.println("You won "+ money * 2 + "$");
-                break;
-            }
+        // Winning Checks
+        // check for jackpot | probabilty .008
+        if (nOne == 1 && nOne == nTwo && nTwo == nThree){
+            Player.setMoney(Player.getMoney() + (jackpot));
+            System.out.printf("JACKPOT!!! You won %.2f$", jackpot);
+            SlotMachineAdv.setJackpot(0);   // set jackpot to zero
+        }
+        // check for other fruits same line win x20 bet | probabilty .032
+        else if (nOne == nTwo && nTwo == nThree) {
+            Player.setMoney(Player.getMoney() + (money * 20));
+            System.out.printf("WOW!!! You won %.2f$", money * 20);
+        }
+        // check if two similar reels next to each other x1 bet | probabilty .32
+        else if ((nOne == nTwo || nTwo == nThree) && nOne != nThree){
+            Player.setMoney(Player.getMoney() + (money ));
+            System.out.println("Free Spin");
         }
 
         System.out.println();
