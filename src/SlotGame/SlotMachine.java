@@ -114,11 +114,13 @@ public class SlotMachine {
         // check for other fruits same line win x20 bet | probabilty .032
         else if (nOne == nTwo && nTwo == nThree) {
             Player.setMoney(Player.getMoney() + (money * 20));
+            setHouse(getHouse() - money * 20);
             System.out.printf("WOW!!! You won %.2f$", money * 20);
         }
         // check if two similar reels next to each other x1 bet | probabilty .32
         else if ((nOne == nTwo || nTwo == nThree) && nOne != nThree){
             Player.setMoney(Player.getMoney() + money);
+            setHouse(getHouse() - money);
             System.out.println("Free Spin");
         }
 
