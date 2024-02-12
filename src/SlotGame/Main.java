@@ -20,7 +20,7 @@ public class Main {
 
         Scanner scn = new Scanner(System.in);
 
-        // Read house and jackpot data from the files
+        //region Read house and jackpot data from the files
         File myObj = new File("jackpot.txt");
         Scanner rdScn = null;
         String dataJackpot = null;
@@ -45,74 +45,95 @@ public class Main {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+        //endregion
 
 
-        // Initiate a slotMachine object
-        SlotMachineAdv alwaysWin = new SlotMachineAdv("TheWinner", 3);
+        //region Initiate a slotMachine object
+        // SlotMachineAdv alwaysWin = new SlotMachineAdv("TheWinner", 3);
+        SlotMachine newGameMech = new SlotMachine("WinnersOnly",3, 0);
         if (dataJackpot != null) {
-            SlotMachineAdv.setJackpot(Double.parseDouble(dataJackpot));
+            newGameMech.setJackpot(Double.parseDouble(dataJackpot));
         }
         else {
-            SlotMachineAdv.setJackpot(0);
+            newGameMech.setJackpot(0);
         }
         if (dataHouse != null) {
-            SlotMachineAdv.setHouse(Double.parseDouble(dataHouse));
+            newGameMech.setHouse(Double.parseDouble(dataHouse));
         }
         else {
             SlotMachineAdv.setHouse(0);
         }
+        //endregion
 
-        // Initiate a Player object
+        //region Initiate a Player object
         System.out.println("Please enter your name");
         String name = scn.nextLine();
         System.out.println("Please enter your balance");
         double money = scn.nextDouble();
         Player Julienne = new Player(name, money);
+        //endregion
 
-
-        // Menu
+        //region Menu
         while (inGame) {
             System.out.println("*******************SLOT GAME*******************");
-            System.out.println("**********Welcome to the Slots Game!***********");
-            System.out.println("Your Balance: " + Julienne.getMoney() + "$");
-            System.out.println("Jackpot     : " + SlotMachineAdv.jackpot + "$");
+            System.out.println("***********Welcome to the Slot Game!***********");
+            System.out.println( "Your Balance:   " + Julienne.getMoney() + "$");
+            System.out.printf(  "JACKPOT:        %.2f$\n", newGameMech.getJackpot());
             System.out.println("Please choose a number from the menu to start");
-            System.out.println("1. Play");
-            System.out.println("2. Exit");
+            System.out.println("1. Spin");
+            System.out.println("2. Info");
+            System.out.println("3. Exit");
 
             input = scn.nextInt();
 
             switch (input) {
                 case 1:
+                    // Check if player has enough amount to bet
+                    if (bet >= Julienne.getMoney()){
+                        System.out.println("You do not have enough money!");
+                        break;
+                    }
+
+                    // stable bet maybe increasing bet can increase win chance
                     System.out.println("Please enter your bet");
                     bet = scn.nextDouble();
                     scn.nextLine();
 
-                    // Deduct the bet amount from Player's account. Here should be a validation
-                    // for account balance to prevent dropping below 0
-                    Julienne.setMoney(Julienne.money - bet);
+                    // Deduct the bet amount from Player's account.
+                    Julienne.setMoney(Julienne.getMoney() - bet);
 
                     // Spinning method
-                    alwaysWin.spinning(bet, Julienne);
+                    System.out.println(newGameMech.spinning());
+                    newGameMech.calculations(bet,Julienne);
 
                     // End
+                    bet = 0;
                     System.out.printf("Press enter to continue!\n");
                     scn.nextLine();
                     break;
                 case 2:
+                    // RTP is 96.04% with these ratios
+                    System.out.println("Cherry Cherry Cherry                        --->    Jackpot");
+                    System.out.println("Any four of Lemon, Orange, Bell or Plum     --->    x20");
+                    System.out.println("Any two similar reels next to each other    --->    x1");
+                    System.out.println("Press enter to continue!");
+                    scn.nextLine();
+                    scn.nextLine();
+                    break;
+                case 3:
                     System.out.println("Thank you for playing");
 
                     // Saving latest house and jackpot values to a file
                     try {
                         PrintWriter pw = new PrintWriter("jackpot.txt");
-                        pw.write(Double.toString(SlotMachineAdv.getJackpot()));
+                        pw.write(Double.toString(newGameMech.getJackpot()));
                         pw.close();
                     } catch (FileNotFoundException e) {
                         throw new RuntimeException(e);
                     }
                     try {
                         PrintWriter pw = new PrintWriter("house.txt");
-                        pw.write(Double.toString(SlotMachineAdv.getHouse()));
+                        pw.write(Double.toString(newGameMech.getHouse()));
                         pw.close();
                     } catch (FileNotFoundException e) {
                         throw new RuntimeException(e);
@@ -127,15 +148,7 @@ public class Main {
                     break;
             }
         }
-
-
-
-        /*
-        insan ve inherite eden classlar olustur. bunlar oyuncular olsun
-        hepsinin parasi olsun initiate ederken. while dongulu bir menu olsun
-        oyun oynayan bet koyup oynasin bu sirada jackpot biriksin. kaybetme counter i arttikca
-        jackpot kazanma olasiligi artsin. house kazanci sayaci olsun onu menude gizli bir sayiya basrak gorebilelim
-         */
+        //endregion
 
     }
 }
