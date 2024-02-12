@@ -5,8 +5,8 @@ package SlotGame;
  * It has a winCheer method which can be specialized for each player using polymorphism.
  */
 public abstract class Human {
-    String name;
-    double money;
+    private String name;
+    private double money;
 
     public Human(String name, double money) {
         this.name = name;

@@ -3,6 +3,10 @@ package SlotGame;
 import java.util.ArrayList;
 import java.util.Random;
 
+/**
+ * Previous class to implement Slot Game. It has one spinning method to spin the reels and
+ * calculate the outcome all in one method.
+ */
 public class SlotMachineAdv {
 
     String name;

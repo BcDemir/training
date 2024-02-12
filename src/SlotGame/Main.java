@@ -49,16 +49,16 @@ public class Main {
 
 
         //region Initiate a slotMachine object
-        SlotMachineAdv alwaysWin = new SlotMachineAdv("TheWinner", 3);
-        SlotMachine newGameMech = new SlotMachine("WinnersOnly",3, Double.parseDouble(dataJackpot));
+        // SlotMachineAdv alwaysWin = new SlotMachineAdv("TheWinner", 3);
+        SlotMachine newGameMech = new SlotMachine("WinnersOnly",3, 0);
         if (dataJackpot != null) {
-            SlotMachineAdv.setJackpot(Double.parseDouble(dataJackpot));
+            newGameMech.setJackpot(Double.parseDouble(dataJackpot));
         }
         else {
-            SlotMachineAdv.setJackpot(0);
+            newGameMech.setJackpot(0);
         }
         if (dataHouse != null) {
-            SlotMachineAdv.setHouse(Double.parseDouble(dataHouse));
+            newGameMech.setHouse(Double.parseDouble(dataHouse));
         }
         else {
             SlotMachineAdv.setHouse(0);
@@ -76,9 +76,9 @@ public class Main {
         //region Menu
         while (inGame) {
             System.out.println("*******************SLOT GAME*******************");
-            System.out.println("**********Welcome to the Slots Game!***********");
-            System.out.println("Your Balance:   " + Julienne.getMoney() + "$");
-            System.out.printf("JACKPOT:         %.2f$\n", newGameMech.getJackpot());
+            System.out.println("***********Welcome to the Slot Game!***********");
+            System.out.println( "Your Balance:   " + Julienne.getMoney() + "$");
+            System.out.printf(  "JACKPOT:        %.2f$\n", newGameMech.getJackpot());
             System.out.println("Please choose a number from the menu to start");
             System.out.println("1. Spin");
             System.out.println("2. Info");
@@ -100,13 +100,14 @@ public class Main {
                     scn.nextLine();
 
                     // Deduct the bet amount from Player's account.
-                    Julienne.setMoney(Julienne.money - bet);
+                    Julienne.setMoney(Julienne.getMoney() - bet);
 
                     // Spinning method
                     System.out.println(newGameMech.spinning());
                     newGameMech.calculations(bet,Julienne);
 
                     // End
+                    bet = 0;
                     System.out.printf("Press enter to continue!\n");
                     scn.nextLine();
                     break;

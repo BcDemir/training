@@ -7,9 +7,9 @@ import java.util.Random;
  * Constructor creates a new SlotGame.SlotMachine object with a name, number of reels and jackpot variables
  */
 public class SlotMachine {
-    String name;
-    int reels = 3;
-    double jackpot, house;
+    private String name;
+    private int reels = 3;
+    private double jackpot, house;
 
     public SlotMachine(String name, int reels, double jackpot) {
         this.name = name;
